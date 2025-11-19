@@ -1,17 +1,19 @@
-"""Utilities needed to emulate Python's interactive interpreter.
-
-"""
+"""Utilities needed to emulate Python's interactive interpreter."""
 
 # Inspired by similar code by Jeff Epler and Fredrik Lundh.
-
 
 import builtins
 import sys
 import traceback
 from codeop import CommandCompiler, compile_command
 
-__all__ = ["InteractiveInterpreter", "InteractiveConsole", "interact",
-           "compile_command"]
+__all__ = [
+    "InteractiveInterpreter",
+    "InteractiveConsole",
+    "interact",
+    "compile_command",
+]
+
 
 class InteractiveInterpreter:
     """Base class for InteractiveConsole.
@@ -110,7 +112,7 @@ class InteractiveInterpreter:
             typ, value, tb = sys.exc_info()
             if filename and issubclass(typ, SyntaxError):
                 value.filename = filename
-            source = kwargs.pop('source', "")
+            source = kwargs.pop("source", "")
             self._showtraceback(typ, value, None, source)
         finally:
             typ = value = tb = None
@@ -135,9 +137,13 @@ class InteractiveInterpreter:
         value = value.with_traceback(tb)
         # Set the line of text that the exception refers to
         lines = source.splitlines()
-        if (source and typ is SyntaxError
-                and not value.text and value.lineno is not None
-                and len(lines) >= value.lineno):
+        if (
+            source
+            and typ is SyntaxError
+            and not value.text
+            and value.lineno is not None
+            and len(lines) >= value.lineno
+        ):
             value.text = lines[value.lineno - 1]
         sys.last_exc = sys.last_value = value
         if sys.excepthook is sys.__excepthook__:
@@ -152,17 +158,17 @@ class InteractiveInterpreter:
             except BaseException as e:
                 e.__context__ = None
                 e = e.with_traceback(e.__traceback__.tb_next)
-                print('Error in sys.excepthook:', file=sys.stderr)
+                print("Error in sys.excepthook:", file=sys.stderr)
                 sys.__excepthook__(type(e), e, e.__traceback__)
                 print(file=sys.stderr)
-                print('Original exception was:', file=sys.stderr)
+                print("Original exception was:", file=sys.stderr)
                 sys.__excepthook__(typ, value, tb)
 
     def _excepthook(self, typ, value, tb):
         # This method is being overwritten in
         # _pyrepl.console.InteractiveColoredConsole
         lines = traceback.format_exception(typ, value, tb)
-        self.write(''.join(lines))
+        self.write("".join(lines))
 
     def write(self, data):
         """Write a string.
@@ -232,9 +238,10 @@ class InteractiveConsole(InteractiveInterpreter):
 
         cprt = 'Type "help", "copyright", "credits" or "license" for more information.'
         if banner is None:
-            self.write("Python %s on %s\n%s\n(%s)\n" %
-                       (sys.version, sys.platform, cprt,
-                        self.__class__.__name__))
+            self.write(
+                "Python %s on %s\n%s\n(%s)\n"
+                % (sys.version, sys.platform, cprt, self.__class__.__name__)
+            )
         elif banner:
             self.write("%s\n" % str(banner))
         more = 0
@@ -299,9 +306,9 @@ class InteractiveConsole(InteractiveInterpreter):
                 del sys.ps2
 
             if exitmsg is None:
-                self.write('now exiting %s...\n' % self.__class__.__name__)
-            elif exitmsg != '':
-                self.write('%s\n' % exitmsg)
+                self.write("now exiting %s...\n" % self.__class__.__name__)
+            elif exitmsg != "":
+                self.write("%s\n" % exitmsg)
 
     def push(self, line, filename=None, _symbol="single"):
         """Push a line to the interpreter.
@@ -344,18 +351,20 @@ class Quitter:
     def __init__(self, name):
         self.name = name
         if sys.platform == "win32":
-            self.eof = 'Ctrl-Z plus Return'
+            self.eof = "Ctrl-Z plus Return"
         else:
-            self.eof = 'Ctrl-D (i.e. EOF)'
+            self.eof = "Ctrl-D (i.e. EOF)"
 
     def __repr__(self):
-        return f'Use {self.name} or {self.eof} to exit'
+        return f"Use {self.name} or {self.eof} to exit"
 
     def __call__(self, code=None):
         raise SystemExit(code)
 
 
-def interact(banner=None, readfunc=None, local=None, exitmsg=None, local_exit=False):
+def interact(
+    banner=None, readfunc=None, local=None, exitmsg=None, local_exit=False
+):
     """Closely emulate the interactive Python interpreter.
 
     This is a backwards compatible interface to the InteractiveConsole
@@ -386,11 +395,14 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(color=True)
-    parser.add_argument('-q', action='store_true',
-                       help="don't print version and copyright messages")
+    parser.add_argument(
+        "-q",
+        action="store_true",
+        help="don't print version and copyright messages",
+    )
     args = parser.parse_args()
     if args.q or sys.flags.quiet:
-        banner = ''
+        banner = ""
     else:
         banner = None
     interact(banner)

@@ -38,7 +38,7 @@ class PdbTestInput(object):
     def __enter__(self):
         self.real_stdin = sys.stdin
         sys.stdin = FakeInput(self.input)
-        self.orig_trace = sys.gettrace() if hasattr(sys, 'gettrace') else None
+        self.orig_trace = sys.gettrace() if hasattr(sys, "gettrace") else None
 
     def __exit__(self, *exc):
         sys.stdin = self.real_stdin
@@ -227,6 +227,7 @@ def test_pdb_basic_commands():
     BAZ
     """
 
+
 def test_pdb_breakpoint_commands():
     """Test basic commands related to breakpoints.
 
@@ -359,6 +360,7 @@ def test_pdb_breakpoint_commands():
     4
     """
 
+
 def test_pdb_breakpoint_ignore_and_condition():
     """
     >>> def test_function():
@@ -400,6 +402,7 @@ def test_pdb_breakpoint_ignore_and_condition():
     4
     """
 
+
 def test_pdb_breakpoint_on_annotated_function_def():
     """Test breakpoints on function definitions with annotation.
 
@@ -433,6 +436,7 @@ def test_pdb_breakpoint_on_annotated_function_def():
     Breakpoint 3 at <doctest test.test_pdb.test_pdb_breakpoint_on_annotated_function_def[2]>:2
     (Pdb) continue
     """
+
 
 def test_pdb_commands():
     """Test the commands command of pdb.
@@ -480,6 +484,7 @@ def test_pdb_commands():
     3
     """
 
+
 def test_pdb_breakpoint_with_filename():
     """Breakpoints with filename:lineno
 
@@ -512,6 +517,7 @@ def test_pdb_breakpoint_with_filename():
     -> return 115
     (Pdb) continue
     """
+
 
 def test_pdb_breakpoint_on_disabled_line():
     """New breakpoint on once disabled line should work
@@ -553,6 +559,7 @@ def test_pdb_breakpoint_on_disabled_line():
     2
     4
     """
+
 
 def test_pdb_breakpoints_preserved_across_interactive_sessions():
     """Breakpoints are remembered between interactive sessions
@@ -620,6 +627,7 @@ def test_pdb_breakpoints_preserved_across_interactive_sessions():
     (Pdb) continue
     """
 
+
 def test_pdb_break_anywhere():
     """Test break_anywhere() method of Pdb.
 
@@ -656,6 +664,7 @@ def test_pdb_break_anywhere():
     False
     """
 
+
 def test_pdb_pp_repr_exc():
     """Test that do_p/do_pp do not swallow exceptions.
 
@@ -681,6 +690,7 @@ def test_pdb_pp_repr_exc():
     *** Exception: repr_exc
     (Pdb) continue
     """
+
 
 def test_pdb_empty_line():
     """Test that empty line repeats the last command.
@@ -714,11 +724,14 @@ def test_pdb_empty_line():
     (Pdb) continue
     """
 
+
 def do_nothing():
     pass
 
+
 def do_something():
     print(42)
+
 
 def test_list_commands():
     """Test the list and source commands of pdb.
@@ -819,6 +832,7 @@ def test_list_commands():
     (Pdb) continue
     """
 
+
 def test_pdb_whatis_command():
     """Test the whatis command
 
@@ -859,6 +873,7 @@ def test_pdb_whatis_command():
     Method mymethod
     (Pdb) continue
     """
+
 
 def test_pdb_display_command():
     """Test display command
@@ -922,6 +937,7 @@ def test_pdb_display_command():
     display undefined: ** raised NameError: name 'undefined' is not defined **
     (Pdb) continue
     """
+
 
 def test_pdb_alias_command():
     """Test alias command
@@ -995,6 +1011,7 @@ def test_pdb_alias_command():
     '1 2 3 2'
     (Pdb) continue
     """
+
 
 def test_pdb_where_command():
     """Test where command
@@ -1087,6 +1104,7 @@ def test_pdb_where_command():
     (Pdb) continue
     """
 
+
 def test_pdb_restart_command():
     """Test restart command
 
@@ -1108,6 +1126,7 @@ def test_pdb_restart_command():
     (Pdb) continue
     """
 
+
 def test_pdb_commands_with_set_trace():
     """Test that commands can be passed to Pdb.set_trace()
 
@@ -1123,6 +1142,7 @@ def test_pdb_commands_with_set_trace():
 # skip this test if sys.flags.no_site = True;
 # exit() isn't defined unless there's a site module.
 if not sys.flags.no_site:
+
     def test_pdb_interact_command():
         """Test interact command
 
@@ -1174,6 +1194,7 @@ if not sys.flags.no_site:
         [2]
         (Pdb) continue
         """
+
 
 def test_convenience_variables():
     """Test convenience variables
@@ -1573,6 +1594,7 @@ def test_post_mortem_single_no_stack():
     A valid traceback must be passed if no exception is being handled
     """
 
+
 def test_post_mortem_complex():
     """Test post mortem traceback debugging of chained exception
 
@@ -1817,6 +1839,7 @@ def test_pdb_skip_modules():
     (Pdb) continue
     """
 
+
 def test_pdb_invalid_arg():
     """This tests pdb commands that have invalid arguments
 
@@ -1854,8 +1877,8 @@ def test_pdb_invalid_arg():
 
 
 # Module for testing skipping of module that makes a callback
-mod = types.ModuleType('module_to_skip')
-exec('def foo_pony(callback): x = 1; callback(); return None', mod.__dict__)
+mod = types.ModuleType("module_to_skip")
+exec("def foo_pony(callback): x = 1; callback(); return None", mod.__dict__)
 
 
 def test_pdb_skip_modules_with_callback():
@@ -1994,6 +2017,7 @@ def test_pdb_run_with_code_object():
     (Pdb) continue
     """
 
+
 def test_next_until_return_at_return_event():
     """Test that pdb stops after a next/until/return issued at a return debug event.
 
@@ -2056,6 +2080,7 @@ def test_next_until_return_at_return_event():
     -> end = 1
     (Pdb) continue
     """
+
 
 def test_pdb_next_command_for_generator():
     """Testing skip unwinding stack on yield for generators for "next" command
@@ -2120,8 +2145,10 @@ def test_pdb_next_command_for_generator():
     finished
     """
 
+
 if not SKIP_CORO_TESTS:
     if has_socket_support:
+
         def test_pdb_asynctask():
             """Testing $_asynctask is accessible in async context
 
@@ -2437,6 +2464,7 @@ if not SKIP_CORO_TESTS:
         finished
         """
 
+
 def test_pdb_return_command_for_generator():
     """Testing no unwinding stack on yield for generators
        for "return" command
@@ -2496,7 +2524,9 @@ def test_pdb_return_command_for_generator():
     finished
     """
 
+
 if not SKIP_CORO_TESTS:
+
     def test_pdb_return_command_for_coroutine():
         """Testing no unwinding stack on yield for coroutines for "return" command
 
@@ -2539,6 +2569,7 @@ if not SKIP_CORO_TESTS:
         (Pdb) continue
         finished
         """
+
 
 def test_pdb_until_command_for_generator():
     """Testing no unwinding stack on yield for generators
@@ -2588,7 +2619,9 @@ def test_pdb_until_command_for_generator():
     finished
     """
 
+
 if not SKIP_CORO_TESTS:
+
     def test_pdb_until_command_for_coroutine():
         """Testing no unwinding stack for coroutines
         for "until" command if target breakpoint is not reached
@@ -2637,6 +2670,7 @@ if not SKIP_CORO_TESTS:
         finished
         """
 
+
 def test_pdb_next_command_in_generator_for_loop():
     """The next command on returning from a generator controlled by a for loop.
 
@@ -2677,6 +2711,7 @@ def test_pdb_next_command_in_generator_for_loop():
     -> x = 123
     (Pdb) continue
     """
+
 
 def test_pdb_next_command_subiterator():
     """The next command in a generator with a subiterator.
@@ -2729,6 +2764,7 @@ def test_pdb_next_command_subiterator():
     (Pdb) continue
     """
 
+
 def test_pdb_breakpoint_with_throw():
     """GH-132536: PY_THROW event should not be turned off
 
@@ -2761,6 +2797,7 @@ def test_pdb_breakpoint_with_throw():
     Deleted breakpoint 1 at <doctest test.test_pdb.test_pdb_breakpoint_with_throw[1]>:7
     (Pdb) continue
     """
+
 
 def test_pdb_multiline_statement():
     """Test for multiline statement
@@ -2795,6 +2832,7 @@ def test_pdb_multiline_statement():
     8
     (Pdb) c
     """
+
 
 def test_pdb_closure():
     """Test for all expressions/statements that involve closure
@@ -2859,6 +2897,7 @@ def test_pdb_closure():
     (Pdb) c
     """
 
+
 def test_pdb_show_attribute_and_item():
     """Test for expressions with command prefix
 
@@ -2899,9 +2938,11 @@ def test_pdb_show_attribute_and_item():
     (Pdb) c
     """
 
+
 # doctest will modify pdb.set_trace during the test, so we need to backup
 # the original function to use it in the test
 original_pdb_settrace = pdb.set_trace
+
 
 def test_pdb_with_inline_breakpoint():
     """Hard-coded breakpoint() calls should invoke the same debugger instance
@@ -2942,6 +2983,7 @@ def test_pdb_with_inline_breakpoint():
     (Pdb) c
     """
 
+
 def test_pdb_issue_20766():
     """Test for reference leaks when the SIGINT handler is set.
 
@@ -2965,6 +3007,7 @@ def test_pdb_issue_20766():
     (Pdb) continue
     pdb 2: <built-in function default_int_handler>
     """
+
 
 def test_pdb_issue_43318():
     """echo breakpoints cleared with filename:lineno
@@ -2993,6 +3036,7 @@ def test_pdb_issue_43318():
     3
     4
     """
+
 
 def test_pdb_issue_gh_91742():
     """See GH-91742
@@ -3041,6 +3085,7 @@ def test_pdb_issue_gh_91742():
     (Pdb) continue
     Author: 'pi' Version: '3.14'
     """
+
 
 def test_pdb_issue_gh_94215():
     """See GH-94215
@@ -3111,6 +3156,7 @@ def test_pdb_issue_gh_94215():
     (Pdb) continue
     """
 
+
 def test_pdb_issue_gh_101673():
     """See GH-101673
 
@@ -3153,6 +3199,7 @@ def test_pdb_issue_gh_101673():
     (Pdb) continue
     """
 
+
 def test_pdb_issue_gh_103225():
     """See GH-103225
 
@@ -3178,6 +3225,7 @@ def test_pdb_issue_gh_103225():
     (Pdb) continue
     """
 
+
 def test_pdb_issue_gh_101517():
     """See GH-101517
 
@@ -3198,6 +3246,7 @@ def test_pdb_issue_gh_101517():
     (Pdb) continue
     """
 
+
 def test_pdb_issue_gh_108976():
     """See GH-108976
     Make sure setting f_trace_opcodes = True won't crash pdb
@@ -3214,6 +3263,7 @@ def test_pdb_issue_gh_108976():
     -> import pdb; pdb.Pdb(nosigint=True, readrc=False).set_trace()
     (Pdb) continue
     """
+
 
 def test_pdb_issue_gh_127321():
     """See GH-127321
@@ -3282,6 +3332,7 @@ def test_pdb_ambiguous_statements():
     (Pdb) continue
     """
 
+
 def test_pdb_f_trace_lines():
     """GH-80675
 
@@ -3303,6 +3354,7 @@ def test_pdb_f_trace_lines():
     -> import pdb; pdb.Pdb(nosigint=True, readrc=False).set_trace()
     (Pdb) continue
     """
+
 
 def test_pdb_frame_refleak():
     """
@@ -3355,6 +3407,7 @@ def test_pdb_frame_refleak():
     1
     """
 
+
 def test_pdb_function_break():
     """Testing the line number of break on function
 
@@ -3395,6 +3448,7 @@ def test_pdb_function_break():
     Breakpoint ... at <doctest test.test_pdb.test_pdb_function_break[3]>:2
     (Pdb) continue
     """
+
 
 def test_pdb_issue_gh_65052():
     """See GH-65052
@@ -3454,23 +3508,24 @@ class PdbTestCase(unittest.TestCase):
     def tearDown(self):
         os_helper.unlink(os_helper.TESTFN)
 
-    @unittest.skipIf(sys.flags.safe_path,
-                     'PYTHONSAFEPATH changes default sys.path')
-    def _run_pdb(self, pdb_args, commands,
-                 expected_returncode=0,
-                 extra_env=None):
-        self.addCleanup(os_helper.rmtree, '__pycache__')
-        cmd = [sys.executable, '-m', 'pdb'] + pdb_args
+    @unittest.skipIf(
+        sys.flags.safe_path, "PYTHONSAFEPATH changes default sys.path"
+    )
+    def _run_pdb(
+        self, pdb_args, commands, expected_returncode=0, extra_env=None
+    ):
+        self.addCleanup(os_helper.rmtree, "__pycache__")
+        cmd = [sys.executable, "-m", "pdb"] + pdb_args
         if extra_env is not None:
             env = os.environ | extra_env
         else:
             env = os.environ
         with subprocess.Popen(
-                cmd,
-                stdout=subprocess.PIPE,
-                stdin=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                env = {**env, 'PYTHONIOENCODING': 'utf-8'}
+            cmd,
+            stdout=subprocess.PIPE,
+            stdin=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            env={**env, "PYTHONIOENCODING": "utf-8"},
         ) as proc:
             stdout, stderr = proc.communicate(str.encode(commands))
         stdout = bytes.decode(stdout) if isinstance(stdout, bytes) else stdout
@@ -3478,60 +3533,73 @@ class PdbTestCase(unittest.TestCase):
         self.assertEqual(
             proc.returncode,
             expected_returncode,
-            f"Unexpected return code\nstdout: {stdout}\nstderr: {stderr}"
+            f"Unexpected return code\nstdout: {stdout}\nstderr: {stderr}",
         )
         return stdout, stderr
 
-    def run_pdb_script(self, script, commands,
-                       expected_returncode=0,
-                       extra_env=None,
-                       script_args=None,
-                       pdbrc=None,
-                       remove_home=False):
+    def run_pdb_script(
+        self,
+        script,
+        commands,
+        expected_returncode=0,
+        extra_env=None,
+        script_args=None,
+        pdbrc=None,
+        remove_home=False,
+    ):
         """Run 'script' lines with pdb and the pdb 'commands'."""
-        filename = 'main.py'
-        with open(filename, 'w') as f:
+        filename = "main.py"
+        with open(filename, "w") as f:
             f.write(textwrap.dedent(script))
 
         if pdbrc is not None:
-            with open('.pdbrc', 'w') as f:
+            with open(".pdbrc", "w") as f:
                 f.write(textwrap.dedent(pdbrc))
-            self.addCleanup(os_helper.unlink, '.pdbrc')
+            self.addCleanup(os_helper.unlink, ".pdbrc")
         self.addCleanup(os_helper.unlink, filename)
 
         with os_helper.EnvironmentVarGuard() as env:
             if remove_home:
-                env.unset('HOME')
+                env.unset("HOME")
             if script_args is None:
                 script_args = []
-            stdout, stderr = self._run_pdb([filename] + script_args, commands, expected_returncode, extra_env)
+            stdout, stderr = self._run_pdb(
+                [filename] + script_args,
+                commands,
+                expected_returncode,
+                extra_env,
+            )
         return stdout, stderr
 
     def run_pdb_module(self, script, commands):
         """Runs the script code as part of a module"""
-        self.module_name = 't_main'
+        self.module_name = "t_main"
         os_helper.rmtree(self.module_name)
-        main_file = self.module_name + '/__main__.py'
-        init_file = self.module_name + '/__init__.py'
+        main_file = self.module_name + "/__main__.py"
+        init_file = self.module_name + "/__init__.py"
         os.mkdir(self.module_name)
-        with open(init_file, 'w') as f:
+        with open(init_file, "w") as f:
             pass
-        with open(main_file, 'w') as f:
+        with open(main_file, "w") as f:
             f.write(textwrap.dedent(script))
         self.addCleanup(os_helper.rmtree, self.module_name)
-        return self._run_pdb(['-m', self.module_name], commands)
+        return self._run_pdb(["-m", self.module_name], commands)
 
     def _assert_find_function(self, file_content, func_name, expected):
-        with open(os_helper.TESTFN, 'wb') as f:
+        with open(os_helper.TESTFN, "wb") as f:
             f.write(file_content)
 
-        expected = None if not expected else (
-            expected[0], os_helper.TESTFN, expected[1])
+        expected = (
+            None
+            if not expected
+            else (expected[0], os_helper.TESTFN, expected[1])
+        )
         self.assertEqual(
-            expected, pdb.find_function(func_name, os_helper.TESTFN))
+            expected, pdb.find_function(func_name, os_helper.TESTFN)
+        )
 
     def test_find_function_empty_file(self):
-        self._assert_find_function(b'', 'foo', None)
+        self._assert_find_function(b"", "foo", None)
 
     def test_find_function_found(self):
         self._assert_find_function(
@@ -3545,8 +3613,8 @@ def bœr():
 def quux():
     pass
 """.encode(),
-            'bœr',
-            ('bœr', 5),
+            "bœr",
+            ("bœr", 5),
         )
 
     def test_find_function_found_with_encoding_cookie(self):
@@ -3561,19 +3629,20 @@ def bœr():
 
 def quux():
     pass
-""".encode('iso-8859-15'),
-            'bœr',
-            ('bœr', 6),
+""".encode("iso-8859-15"),
+            "bœr",
+            ("bœr", 6),
         )
 
     def test_find_function_found_with_bom(self):
         self._assert_find_function(
-            codecs.BOM_UTF8 + """\
+            codecs.BOM_UTF8
+            + """\
 def bœr():
     pass
 """.encode(),
-            'bœr',
-            ('bœr', 2),
+            "bœr",
+            ("bœr", 2),
         )
 
     def test_spec(self):
@@ -3586,7 +3655,7 @@ def bœr():
         commands = "continue"
 
         stdout, _ = self.run_pdb_script(script, commands)
-        self.assertIn('None', stdout)
+        self.assertIn("None", stdout)
 
     def test_find_function_first_executable_line(self):
         code = textwrap.dedent("""\
@@ -3608,25 +3677,29 @@ def bœr():
                 )
         """).encode()
 
-        self._assert_find_function(code, 'foo', ('foo', 1))
-        self._assert_find_function(code, 'bar', ('bar', 4))
-        self._assert_find_function(code, 'baz', ('baz', 8))
-        self._assert_find_function(code, 'mul', ('mul', 12))
+        self._assert_find_function(code, "foo", ("foo", 1))
+        self._assert_find_function(code, "bar", ("bar", 4))
+        self._assert_find_function(code, "baz", ("baz", 8))
+        self._assert_find_function(code, "mul", ("mul", 12))
 
     def test_issue7964(self):
         # open the file as binary so we can force \r\n newline
-        with open(os_helper.TESTFN, 'wb') as f:
+        with open(os_helper.TESTFN, "wb") as f:
             f.write(b'print("testing my pdb")\r\n')
-        cmd = [sys.executable, '-m', 'pdb', os_helper.TESTFN]
-        proc = subprocess.Popen(cmd,
+        cmd = [sys.executable, "-m", "pdb", os_helper.TESTFN]
+        proc = subprocess.Popen(
+            cmd,
             stdout=subprocess.PIPE,
             stdin=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            )
+        )
         self.addCleanup(proc.stdout.close)
-        stdout, stderr = proc.communicate(b'quit\n')
-        self.assertNotIn(b'SyntaxError', stdout,
-                         "Got a syntax error running test script under PDB")
+        stdout, stderr = proc.communicate(b"quit\n")
+        self.assertNotIn(
+            b"SyntaxError",
+            stdout,
+            "Got a syntax error running test script under PDB",
+        )
 
     def test_issue46434(self):
         # Temporarily patch in an extra help command which doesn't have a
@@ -3643,11 +3716,17 @@ def bœr():
             help testcmdwithnodocs
         """
         stdout, stderr = self.run_pdb_script(script, commands)
-        output = (stdout or '') + (stderr or '')
-        self.assertNotIn('AttributeError', output,
-                         'Calling help on a command with no docs should be handled gracefully')
-        self.assertIn("*** No help for 'testcmdwithnodocs'; __doc__ string missing", output,
-                      'Calling help on a command with no docs should print an error')
+        output = (stdout or "") + (stderr or "")
+        self.assertNotIn(
+            "AttributeError",
+            output,
+            "Calling help on a command with no docs should be handled gracefully",
+        )
+        self.assertIn(
+            "*** No help for 'testcmdwithnodocs'; __doc__ string missing",
+            output,
+            "Calling help on a command with no docs should print an error",
+        )
 
     def test_issue13183(self):
         script = """
@@ -3677,20 +3756,22 @@ def bœr():
             def bar():
                 pass
         """
-        with open('bar.py', 'w') as f:
+        with open("bar.py", "w") as f:
             f.write(textwrap.dedent(bar))
-        self.addCleanup(os_helper.unlink, 'bar.py')
+        self.addCleanup(os_helper.unlink, "bar.py")
         stdout, stderr = self.run_pdb_script(script, commands)
         self.assertTrue(
-            any('main.py(5)foo()->None' in l for l in stdout.splitlines()),
-            'Fail to step into the caller after a return')
+            any("main.py(5)foo()->None" in l for l in stdout.splitlines()),
+            "Fail to step into the caller after a return",
+        )
 
     def test_issue13120(self):
         # Invoking "continue" on a non-main thread triggered an exception
         # inside signal.signal.
 
-        with open(os_helper.TESTFN, 'wb') as f:
-            f.write(textwrap.dedent("""
+        with open(os_helper.TESTFN, "wb") as f:
+            f.write(
+                textwrap.dedent("""
                 import threading
                 import pdb
 
@@ -3700,23 +3781,26 @@ def bœr():
                     y = 1
 
                 t = threading.Thread(target=start_pdb)
-                t.start()""").encode('ascii'))
-        cmd = [sys.executable, '-u', os_helper.TESTFN]
-        proc = subprocess.Popen(cmd,
+                t.start()""").encode("ascii")
+            )
+        cmd = [sys.executable, "-u", os_helper.TESTFN]
+        proc = subprocess.Popen(
+            cmd,
             stdout=subprocess.PIPE,
             stdin=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            env={**os.environ, 'PYTHONIOENCODING': 'utf-8'}
-            )
+            env={**os.environ, "PYTHONIOENCODING": "utf-8"},
+        )
         self.addCleanup(proc.stdout.close)
-        stdout, stderr = proc.communicate(b'cont\n')
-        self.assertNotIn(b'Error', stdout,
-                         "Got an error running test script under PDB")
+        stdout, stderr = proc.communicate(b"cont\n")
+        self.assertNotIn(
+            b"Error", stdout, "Got an error running test script under PDB"
+        )
 
     def test_issue36250(self):
-
-        with open(os_helper.TESTFN, 'wb') as f:
-            f.write(textwrap.dedent("""
+        with open(os_helper.TESTFN, "wb") as f:
+            f.write(
+                textwrap.dedent("""
                 import threading
                 import pdb
 
@@ -3730,31 +3814,36 @@ def bœr():
                 t.start()
                 pdb.Pdb(readrc=False).set_trace()
                 evt.set()
-                t.join()""").encode('ascii'))
-        cmd = [sys.executable, '-u', os_helper.TESTFN]
-        proc = subprocess.Popen(cmd,
+                t.join()""").encode("ascii")
+            )
+        cmd = [sys.executable, "-u", os_helper.TESTFN]
+        proc = subprocess.Popen(
+            cmd,
             stdout=subprocess.PIPE,
             stdin=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            env = {**os.environ, 'PYTHONIOENCODING': 'utf-8'}
-            )
+            env={**os.environ, "PYTHONIOENCODING": "utf-8"},
+        )
         self.addCleanup(proc.stdout.close)
-        stdout, stderr = proc.communicate(b'cont\ncont\n')
-        self.assertNotIn(b'Error', stdout,
-                         "Got an error running test script under PDB")
+        stdout, stderr = proc.communicate(b"cont\ncont\n")
+        self.assertNotIn(
+            b"Error", stdout, "Got an error running test script under PDB"
+        )
 
     def test_issue16180(self):
         # A syntax error in the debuggee.
         script = "def f: pass\n"
-        commands = ''
+        commands = ""
         expected = "SyntaxError:"
-        stdout, stderr = self.run_pdb_script(
-            script, commands
+        stdout, stderr = self.run_pdb_script(script, commands)
+        self.assertIn(
+            expected,
+            stderr,
+            "\n\nExpected:\n{}\nGot:\n{}\n"
+            "Fail to handle a syntax error in the debuggee.".format(
+                expected, stderr
+            ),
         )
-        self.assertIn(expected, stderr,
-            '\n\nExpected:\n{}\nGot:\n{}\n'
-            'Fail to handle a syntax error in the debuggee.'
-            .format(expected, stderr))
 
     def test_issue84583(self):
         # A syntax error from ast.literal_eval should not make pdb exit.
@@ -3782,7 +3871,7 @@ def bœr():
             quit
         """
         stdout, stderr = self.run_pdb_script(script, commands)
-        res = '\n'.join([x.strip() for x in stdout.splitlines()])
+        res = "\n".join([x.strip() for x in stdout.splitlines()])
         self.assertRegex(res, "Restarting .* with arguments:\na b c")
         self.assertRegex(res, "Restarting .* with arguments:\nd e f")
 
@@ -3808,13 +3897,13 @@ def bœr():
             def bar():
                 return 42
         """
-        with open('bar.py', 'w') as f:
+        with open("bar.py", "w") as f:
             f.write(textwrap.dedent(bar))
-        self.addCleanup(os_helper.unlink, 'bar.py')
+        self.addCleanup(os_helper.unlink, "bar.py")
         stdout, stderr = self.run_pdb_script(script, commands)
         lines = stdout.splitlines()
-        self.assertIn('-> pass', lines)
-        self.assertIn('(Pdb) 42', lines)
+        self.assertIn("-> pass", lines)
+        self.assertIn("(Pdb) 42", lines)
 
     def test_step_into_botframe(self):
         # gh-125422
@@ -3842,7 +3931,9 @@ def bœr():
             p f"{a+8=}"
         """)
 
-        stdout, stderr = self.run_pdb_script(script, 'q\n', pdbrc=pdbrc, remove_home=True)
+        stdout, stderr = self.run_pdb_script(
+            script, "q\n", pdbrc=pdbrc, remove_home=True
+        )
         self.assertNotIn("SyntaxError", stdout)
         self.assertIn("a+8=9", stdout)
         self.assertIn("-> b = 2", stdout)
@@ -3861,7 +3952,9 @@ def bœr():
 
         """)
 
-        stdout, stderr = self.run_pdb_script(script, 'q\n', pdbrc=pdbrc, remove_home=True)
+        stdout, stderr = self.run_pdb_script(
+            script, "q\n", pdbrc=pdbrc, remove_home=True
+        )
         self.assertIn("b = 2", stdout)
         self.assertNotIn("c = 3", stdout)
 
@@ -3880,7 +3973,9 @@ def bœr():
             pi a
         """)
 
-        stdout, stderr = self.run_pdb_script(script, 'q\n', pdbrc=pdbrc, remove_home=True)
+        stdout, stderr = self.run_pdb_script(
+            script, "q\n", pdbrc=pdbrc, remove_home=True
+        )
         self.assertIn("a.attr = 1", stdout)
 
     def test_pdbrc_semicolon(self):
@@ -3896,7 +3991,9 @@ def bœr():
             b 5;;c;;n
         """)
 
-        stdout, stderr = self.run_pdb_script(script, 'q\n', pdbrc=pdbrc, remove_home=True)
+        stdout, stderr = self.run_pdb_script(
+            script, "q\n", pdbrc=pdbrc, remove_home=True
+        )
         self.assertIn("-> b = 2", stdout)
 
     def test_pdbrc_commands(self):
@@ -3914,7 +4011,9 @@ def bœr():
             c
         """)
 
-        stdout, stderr = self.run_pdb_script(script, 'q\n', pdbrc=pdbrc, remove_home=True)
+        stdout, stderr = self.run_pdb_script(
+            script, "q\n", pdbrc=pdbrc, remove_home=True
+        )
         self.assertIn("<__main__.A object at", stdout)
 
     def test_readrc_kwarg(self):
@@ -3922,7 +4021,9 @@ def bœr():
             print('hello')
         """)
 
-        stdout, stderr = self.run_pdb_script(script, 'q\n', pdbrc='invalid', remove_home=True)
+        stdout, stderr = self.run_pdb_script(
+            script, "q\n", pdbrc="invalid", remove_home=True
+        )
         self.assertIn("NameError: name 'invalid' is not defined", stdout)
 
     def test_readrc_homedir(self):
@@ -3937,17 +4038,17 @@ def bœr():
 
     def test_header(self):
         stdout = StringIO()
-        header = 'Nobody expects... blah, blah, blah'
+        header = "Nobody expects... blah, blah, blah"
         with ExitStack() as resources:
-            resources.enter_context(patch('sys.stdout', stdout))
+            resources.enter_context(patch("sys.stdout", stdout))
             # patch pdb.Pdb.set_trace() to avoid entering the debugger
-            resources.enter_context(patch.object(pdb.Pdb, 'set_trace'))
+            resources.enter_context(patch.object(pdb.Pdb, "set_trace"))
             # We need to manually clear pdb.Pdb._last_pdb_instance so a
             # new instance with stdout redirected could be created when
             # pdb.set_trace() is called.
             pdb.Pdb._last_pdb_instance = None
             pdb.set_trace(header=header)
-        self.assertEqual(stdout.getvalue(), header + '\n')
+        self.assertEqual(stdout.getvalue(), header + "\n")
 
     def test_run_module(self):
         script = """print("SUCCESS")"""
@@ -3956,7 +4057,9 @@ def bœr():
             quit
         """
         stdout, stderr = self.run_pdb_module(script, commands)
-        self.assertTrue(any("SUCCESS" in l for l in stdout.splitlines()), stdout)
+        self.assertTrue(
+            any("SUCCESS" in l for l in stdout.splitlines()), stdout
+        )
 
     def test_module_is_run_as_main(self):
         script = """
@@ -3968,7 +4071,9 @@ def bœr():
             quit
         """
         stdout, stderr = self.run_pdb_module(script, commands)
-        self.assertTrue(any("SUCCESS" in l for l in stdout.splitlines()), stdout)
+        self.assertTrue(
+            any("SUCCESS" in l for l in stdout.splitlines()), stdout
+        )
 
     def test_run_module_with_args(self):
         commands = """
@@ -3979,7 +4084,9 @@ def bœr():
         stdout, _ = self._run_pdb(["-m", "calendar", "1"], commands)
         self.assertIn("December", stdout)
 
-        stdout, _ = self._run_pdb(["-m", "calendar", "--type", "text"], commands)
+        stdout, _ = self._run_pdb(
+            ["-m", "calendar", "--type", "text"], commands
+        )
         self.assertIn("December", stdout)
 
     def test_run_script_with_args(self):
@@ -3992,7 +4099,9 @@ def bœr():
             quit
         """
 
-        stdout, stderr = self.run_pdb_script(script, commands, script_args=["--bar", "foo"])
+        stdout, stderr = self.run_pdb_script(
+            script, commands, script_args=["--bar", "foo"]
+        )
         self.assertIn("['--bar', 'foo']", stdout)
 
     def test_breakpoint(self):
@@ -4007,8 +4116,12 @@ def bœr():
             quit
         """
         stdout, stderr = self.run_pdb_module(script, commands)
-        self.assertTrue(any("Breakpoint 1 at" in l for l in stdout.splitlines()), stdout)
-        self.assertTrue(all("SUCCESS" not in l for l in stdout.splitlines()), stdout)
+        self.assertTrue(
+            any("Breakpoint 1 at" in l for l in stdout.splitlines()), stdout
+        )
+        self.assertTrue(
+            all("SUCCESS" not in l for l in stdout.splitlines()), stdout
+        )
 
     def test_run_pdb_with_pdb(self):
         commands = """
@@ -4018,53 +4131,68 @@ def bœr():
         stdout, stderr = self._run_pdb(["-m", "pdb"], commands)
         self.assertIn(
             pdb._usage,
-            stdout.replace('\r', '')  # remove \r for windows
+            stdout.replace("\r", ""),  # remove \r for windows
         )
 
     def test_module_without_a_main(self):
-        module_name = 't_main'
+        module_name = "t_main"
         os_helper.rmtree(module_name)
-        init_file = module_name + '/__init__.py'
+        init_file = module_name + "/__init__.py"
         os.mkdir(module_name)
-        with open(init_file, 'w'):
+        with open(init_file, "w"):
             pass
         self.addCleanup(os_helper.rmtree, module_name)
         stdout, stderr = self._run_pdb(
-            ['-m', module_name], "", expected_returncode=1
+            ["-m", module_name], "", expected_returncode=1
         )
         self.assertIn("ImportError: No module named t_main.__main__;", stdout)
 
     def test_package_without_a_main(self):
-        pkg_name = 't_pkg'
-        module_name = 't_main'
+        pkg_name = "t_pkg"
+        module_name = "t_main"
         os_helper.rmtree(pkg_name)
-        modpath = pkg_name + '/' + module_name
+        modpath = pkg_name + "/" + module_name
         os.makedirs(modpath)
-        with open(modpath + '/__init__.py', 'w'):
+        with open(modpath + "/__init__.py", "w"):
             pass
         self.addCleanup(os_helper.rmtree, pkg_name)
         stdout, stderr = self._run_pdb(
-            ['-m', modpath.replace('/', '.')], "", expected_returncode=1
+            ["-m", modpath.replace("/", ".")], "", expected_returncode=1
         )
         self.assertIn(
             "'t_pkg.t_main' is a package and cannot be directly executed",
-            stdout)
+            stdout,
+        )
 
     def test_nonexistent_module(self):
         assert not os.path.exists(os_helper.TESTFN)
-        stdout, stderr = self._run_pdb(["-m", os_helper.TESTFN], "", expected_returncode=1)
-        self.assertIn(f"ImportError: No module named {os_helper.TESTFN}", stdout)
+        stdout, stderr = self._run_pdb(
+            ["-m", os_helper.TESTFN], "", expected_returncode=1
+        )
+        self.assertIn(
+            f"ImportError: No module named {os_helper.TESTFN}", stdout
+        )
 
     def test_dir_as_script(self):
         with os_helper.temp_dir() as temp_dir:
-            stdout, stderr = self._run_pdb([temp_dir], "", expected_returncode=1)
+            stdout, stderr = self._run_pdb(
+                [temp_dir], "", expected_returncode=1
+            )
             self.assertIn(f"Error: {temp_dir} is a directory", stdout)
 
     def test_invalid_cmd_line_options(self):
         stdout, stderr = self._run_pdb(["-c"], "", expected_returncode=2)
-        self.assertIn(f"pdb: error: argument -c/--command: expected one argument", stderr.split('\n')[1])
-        stdout, stderr = self._run_pdb(["--spam", "-m", "pdb"], "", expected_returncode=2)
-        self.assertIn(f"pdb: error: unrecognized arguments: --spam", stderr.split('\n')[1])
+        self.assertIn(
+            f"pdb: error: argument -c/--command: expected one argument",
+            stderr.split("\n")[1],
+        )
+        stdout, stderr = self._run_pdb(
+            ["--spam", "-m", "pdb"], "", expected_returncode=2
+        )
+        self.assertIn(
+            f"pdb: error: unrecognized arguments: --spam",
+            stderr.split("\n")[1],
+        )
 
     def test_blocks_at_first_code_line(self):
         script = """
@@ -4076,8 +4204,10 @@ def bœr():
             quit
         """
         stdout, stderr = self.run_pdb_module(script, commands)
-        self.assertTrue(any("__main__.py(4)<module>()"
-                            in l for l in stdout.splitlines()), stdout)
+        self.assertTrue(
+            any("__main__.py(4)<module>()" in l for l in stdout.splitlines()),
+            stdout,
+        )
 
     def test_file_modified_after_execution(self):
         script = """
@@ -4132,18 +4262,18 @@ def bœr():
             continue
         """
 
-        filename = 'main.py'
-        with open(filename, 'w') as f:
+        filename = "main.py"
+        with open(filename, "w") as f:
             f.write(textwrap.dedent(script))
         self.addCleanup(os_helper.unlink, filename)
-        self.addCleanup(os_helper.rmtree, '__pycache__')
+        self.addCleanup(os_helper.rmtree, "__pycache__")
         cmd = [sys.executable, filename]
         with subprocess.Popen(
-                cmd,
-                stdout=subprocess.PIPE,
-                stdin=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                env = {**os.environ, 'PYTHONIOENCODING': 'utf-8'},
+            cmd,
+            stdout=subprocess.PIPE,
+            stdin=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            env={**os.environ, "PYTHONIOENCODING": "utf-8"},
         ) as proc:
             stdout, _ = proc.communicate(str.encode(commands))
         stdout = stdout and bytes.decode(stdout)
@@ -4201,29 +4331,35 @@ def bœr():
         self.assertIn("Restarting", stdout)
 
     def test_relative_imports(self):
-        self.module_name = 't_main'
+        self.module_name = "t_main"
         os_helper.rmtree(self.module_name)
-        main_file = self.module_name + '/__main__.py'
-        init_file = self.module_name + '/__init__.py'
-        module_file = self.module_name + '/module.py'
+        main_file = self.module_name + "/__main__.py"
+        init_file = self.module_name + "/__init__.py"
+        module_file = self.module_name + "/module.py"
         self.addCleanup(os_helper.rmtree, self.module_name)
         os.mkdir(self.module_name)
-        with open(init_file, 'w') as f:
-            f.write(textwrap.dedent("""
+        with open(init_file, "w") as f:
+            f.write(
+                textwrap.dedent("""
                 top_var = "VAR from top"
-            """))
-        with open(main_file, 'w') as f:
-            f.write(textwrap.dedent("""
+            """)
+            )
+        with open(main_file, "w") as f:
+            f.write(
+                textwrap.dedent("""
                 from . import top_var
                 from .module import var
                 from . import module
                 pass # We'll stop here and print the vars
-            """))
-        with open(module_file, 'w') as f:
-            f.write(textwrap.dedent("""
+            """)
+            )
+        with open(module_file, "w") as f:
+            f.write(
+                textwrap.dedent("""
                 var = "VAR from module"
                 var2 = "second var"
-            """))
+            """)
+            )
         commands = """
             b 5
             c
@@ -4232,143 +4368,171 @@ def bœr():
             p module.var2
             quit
         """
-        stdout, _ = self._run_pdb(['-m', self.module_name], commands)
-        self.assertTrue(any("VAR from module" in l for l in stdout.splitlines()), stdout)
+        stdout, _ = self._run_pdb(["-m", self.module_name], commands)
+        self.assertTrue(
+            any("VAR from module" in l for l in stdout.splitlines()), stdout
+        )
         self.assertTrue(any("VAR from top" in l for l in stdout.splitlines()))
         self.assertTrue(any("second var" in l for l in stdout.splitlines()))
 
     def test_relative_imports_on_plain_module(self):
         # Validates running a plain module. See bpo32691
-        self.module_name = 't_main'
+        self.module_name = "t_main"
         os_helper.rmtree(self.module_name)
-        main_file = self.module_name + '/runme.py'
-        init_file = self.module_name + '/__init__.py'
-        module_file = self.module_name + '/module.py'
+        main_file = self.module_name + "/runme.py"
+        init_file = self.module_name + "/__init__.py"
+        module_file = self.module_name + "/module.py"
         self.addCleanup(os_helper.rmtree, self.module_name)
         os.mkdir(self.module_name)
-        with open(init_file, 'w') as f:
-            f.write(textwrap.dedent("""
+        with open(init_file, "w") as f:
+            f.write(
+                textwrap.dedent("""
                 top_var = "VAR from top"
-            """))
-        with open(main_file, 'w') as f:
-            f.write(textwrap.dedent("""
+            """)
+            )
+        with open(main_file, "w") as f:
+            f.write(
+                textwrap.dedent("""
                 from . import module
                 pass # We'll stop here and print the vars
-            """))
-        with open(module_file, 'w') as f:
-            f.write(textwrap.dedent("""
+            """)
+            )
+        with open(module_file, "w") as f:
+            f.write(
+                textwrap.dedent("""
                 var = "VAR from module"
-            """))
+            """)
+            )
         commands = """
             b 3
             c
             p module.var
             quit
         """
-        stdout, _ = self._run_pdb(['-m', self.module_name + '.runme'], commands)
-        self.assertTrue(any("VAR from module" in l for l in stdout.splitlines()), stdout)
+        stdout, _ = self._run_pdb(
+            ["-m", self.module_name + ".runme"], commands
+        )
+        self.assertTrue(
+            any("VAR from module" in l for l in stdout.splitlines()), stdout
+        )
 
     def test_errors_in_command(self):
-        commands = "\n".join([
-            'print(]',
-            'debug print(',
-            'debug doesnotexist',
-            'c',
-        ])
-        stdout, _ = self.run_pdb_script('pass', commands + '\n')
+        commands = "\n".join(
+            [
+                "print(]",
+                "debug print(",
+                "debug doesnotexist",
+                "c",
+            ]
+        )
+        stdout, _ = self.run_pdb_script("pass", commands + "\n")
 
-        self.assertEqual(stdout.splitlines()[1:], [
-            '-> pass',
-            "(Pdb) *** SyntaxError: closing parenthesis ']' does not match opening "
-            "parenthesis '('",
-
-            '(Pdb) ENTERING RECURSIVE DEBUGGER',
-            '*** SyntaxError: \'(\' was never closed',
-            'LEAVING RECURSIVE DEBUGGER',
-
-            '(Pdb) ENTERING RECURSIVE DEBUGGER',
-            '> <string>(1)<module>()',
-            "((Pdb)) *** NameError: name 'doesnotexist' is not defined",
-            'LEAVING RECURSIVE DEBUGGER',
-            '(Pdb) ',
-        ])
+        self.assertEqual(
+            stdout.splitlines()[1:],
+            [
+                "-> pass",
+                "(Pdb) *** SyntaxError: closing parenthesis ']' does not match opening "
+                "parenthesis '('",
+                "(Pdb) ENTERING RECURSIVE DEBUGGER",
+                "*** SyntaxError: '(' was never closed",
+                "LEAVING RECURSIVE DEBUGGER",
+                "(Pdb) ENTERING RECURSIVE DEBUGGER",
+                "> <string>(1)<module>()",
+                "((Pdb)) *** NameError: name 'doesnotexist' is not defined",
+                "LEAVING RECURSIVE DEBUGGER",
+                "(Pdb) ",
+            ],
+        )
 
     def test_issue34266(self):
-        '''do_run handles exceptions from parsing its arg'''
+        """do_run handles exceptions from parsing its arg"""
+
         def check(bad_arg, msg):
-            commands = "\n".join([
-                f'run {bad_arg}',
-                'q',
-            ])
-            stdout, _ = self.run_pdb_script('pass', commands + '\n')
-            self.assertEqual(stdout.splitlines()[1:], [
-                '-> pass',
-                f'(Pdb) *** Cannot run {bad_arg}: {msg}',
-                '(Pdb) ',
-            ])
-        check('\\', 'No escaped character')
-        check('"', 'No closing quotation')
+            commands = "\n".join(
+                [
+                    f"run {bad_arg}",
+                    "q",
+                ]
+            )
+            stdout, _ = self.run_pdb_script("pass", commands + "\n")
+            self.assertEqual(
+                stdout.splitlines()[1:],
+                [
+                    "-> pass",
+                    f"(Pdb) *** Cannot run {bad_arg}: {msg}",
+                    "(Pdb) ",
+                ],
+            )
+
+        check("\\", "No escaped character")
+        check('"', "No closing quotation")
 
     def test_issue42384(self):
-        '''When running `python foo.py` sys.path[0] is an absolute path. `python -m pdb foo.py` should behave the same'''
+        """When running `python foo.py` sys.path[0] is an absolute path. `python -m pdb foo.py` should behave the same"""
         script = textwrap.dedent("""
             import sys
             print('sys.path[0] is', sys.path[0])
         """)
-        commands = 'c\nq'
+        commands = "c\nq"
 
         with os_helper.temp_cwd() as cwd:
-            expected = f'(Pdb) sys.path[0] is {os.path.realpath(cwd)}'
+            expected = f"(Pdb) sys.path[0] is {os.path.realpath(cwd)}"
 
             stdout, stderr = self.run_pdb_script(script, commands)
 
-            self.assertEqual(stdout.split('\n')[2].rstrip('\r'), expected)
+            self.assertEqual(stdout.split("\n")[2].rstrip("\r"), expected)
 
     @os_helper.skip_unless_symlink
     def test_issue42384_symlink(self):
-        '''When running `python foo.py` sys.path[0] resolves symlinks. `python -m pdb foo.py` should behave the same'''
+        """When running `python foo.py` sys.path[0] resolves symlinks. `python -m pdb foo.py` should behave the same"""
         script = textwrap.dedent("""
             import sys
             print('sys.path[0] is', sys.path[0])
         """)
-        commands = 'c\nq'
+        commands = "c\nq"
 
         with os_helper.temp_cwd() as cwd:
             cwd = os.path.realpath(cwd)
-            dir_one = os.path.join(cwd, 'dir_one')
-            dir_two = os.path.join(cwd, 'dir_two')
-            expected = f'(Pdb) sys.path[0] is {dir_one}'
+            dir_one = os.path.join(cwd, "dir_one")
+            dir_two = os.path.join(cwd, "dir_two")
+            expected = f"(Pdb) sys.path[0] is {dir_one}"
 
             os.mkdir(dir_one)
-            with open(os.path.join(dir_one, 'foo.py'), 'w') as f:
+            with open(os.path.join(dir_one, "foo.py"), "w") as f:
                 f.write(script)
             os.mkdir(dir_two)
-            os.symlink(os.path.join(dir_one, 'foo.py'), os.path.join(dir_two, 'foo.py'))
+            os.symlink(
+                os.path.join(dir_one, "foo.py"),
+                os.path.join(dir_two, "foo.py"),
+            )
 
-            stdout, stderr = self._run_pdb([os.path.join('dir_two', 'foo.py')], commands)
+            stdout, stderr = self._run_pdb(
+                [os.path.join("dir_two", "foo.py")], commands
+            )
 
-            self.assertEqual(stdout.split('\n')[2].rstrip('\r'), expected)
+            self.assertEqual(stdout.split("\n")[2].rstrip("\r"), expected)
 
     def test_safe_path(self):
-        """ With safe_path set, pdb should not mangle sys.path[0]"""
+        """With safe_path set, pdb should not mangle sys.path[0]"""
 
         script = textwrap.dedent("""
             import sys
             import random
             print('sys.path[0] is', sys.path[0])
         """)
-        commands = 'c\n'
-
+        commands = "c\n"
 
         with os_helper.temp_cwd() as cwd:
-            stdout, _ = self.run_pdb_script(script, commands, extra_env={'PYTHONSAFEPATH': '1'})
+            stdout, _ = self.run_pdb_script(
+                script, commands, extra_env={"PYTHONSAFEPATH": "1"}
+            )
 
-            unexpected = f'sys.path[0] is {os.path.realpath(cwd)}'
+            unexpected = f"sys.path[0] is {os.path.realpath(cwd)}"
             self.assertNotIn(unexpected, stdout)
 
     def test_issue42383(self):
         with os_helper.temp_cwd() as cwd:
-            with open('foo.py', 'w') as f:
+            with open("foo.py", "w") as f:
                 s = textwrap.dedent("""
                     print('The correct file was executed')
 
@@ -4377,17 +4541,17 @@ def bœr():
                 """)
                 f.write(s)
 
-            subdir = os.path.join(cwd, 'subdir')
+            subdir = os.path.join(cwd, "subdir")
             os.mkdir(subdir)
-            os.mkdir(os.path.join(subdir, 'subdir'))
-            wrong_file = os.path.join(subdir, 'foo.py')
+            os.mkdir(os.path.join(subdir, "subdir"))
+            wrong_file = os.path.join(subdir, "foo.py")
 
-            with open(wrong_file, 'w') as f:
+            with open(wrong_file, "w") as f:
                 f.write('print("The wrong file was executed")')
 
-            stdout, stderr = self._run_pdb(['foo.py'], 'c\nc\nq')
-            expected = '(Pdb) The correct file was executed'
-            self.assertEqual(stdout.split('\n')[6].rstrip('\r'), expected)
+            stdout, stderr = self._run_pdb(["foo.py"], "c\nc\nq")
+            expected = "(Pdb) The correct file was executed"
+            self.assertEqual(stdout.split("\n")[6].rstrip("\r"), expected)
 
     def test_gh_94215_crash(self):
         script = """\
@@ -4451,42 +4615,46 @@ def bœr():
             longlist
             quit
         """
-        with open('gh93696.py', 'w') as f:
+        with open("gh93696.py", "w") as f:
             f.write(textwrap.dedent(frozen_src))
 
-        with open('gh93696_host.py', 'w') as f:
+        with open("gh93696_host.py", "w") as f:
             f.write(textwrap.dedent(host_program))
 
-        self.addCleanup(os_helper.unlink, 'gh93696.py')
-        self.addCleanup(os_helper.unlink, 'gh93696_host.py')
+        self.addCleanup(os_helper.unlink, "gh93696.py")
+        self.addCleanup(os_helper.unlink, "gh93696_host.py")
 
         # verify that pdb found the source of the "frozen" function and it
         # shows the breakpoint at the correct line for both list and longlist
         for commands in (commands_list, commands_longlist):
             stdout, _ = self._run_pdb(["gh93696_host.py"], commands)
-            self.assertIn('x = "Sentinel string for gh-93696"', stdout, "Sentinel statement not found")
-            self.assertIn('4 B', stdout, "breakpoint not found")
-            self.assertIn('-> def func():', stdout, "stack entry not found")
+            self.assertIn(
+                'x = "Sentinel string for gh-93696"',
+                stdout,
+                "Sentinel statement not found",
+            )
+            self.assertIn("4 B", stdout, "breakpoint not found")
+            self.assertIn("-> def func():", stdout, "stack entry not found")
 
     def test_empty_file(self):
-        script = ''
-        commands = 'q\n'
+        script = ""
+        commands = "q\n"
         # We check that pdb stopped at line 0, but anything reasonable
         # is acceptable here, as long as it does not halt
         stdout, _ = self.run_pdb_script(script, commands)
-        self.assertIn('main.py(0)', stdout)
+        self.assertIn("main.py(0)", stdout)
         stdout, _ = self.run_pdb_module(script, commands)
-        self.assertIn('__main__.py(0)', stdout)
+        self.assertIn("__main__.py(0)", stdout)
 
     def test_non_utf8_encoding(self):
-        script_dir = os.path.join(os.path.dirname(__file__), 'encoded_modules')
+        script_dir = os.path.join(os.path.dirname(__file__), "encoded_modules")
         for filename in os.listdir(script_dir):
             if filename.endswith(".py"):
-                self._run_pdb([os.path.join(script_dir, filename)], 'q')
+                self._run_pdb([os.path.join(script_dir, filename)], "q")
 
     def test_zipapp(self):
         with os_helper.temp_dir() as temp_dir:
-            os.mkdir(os.path.join(temp_dir, 'source'))
+            os.mkdir(os.path.join(temp_dir, "source"))
             script = textwrap.dedent(
                 """
                 def f(x):
@@ -4494,22 +4662,24 @@ def bœr():
                 f(21 + 21)
                 """
             )
-            with open(os.path.join(temp_dir, 'source', '__main__.py'), 'w') as f:
+            with open(
+                os.path.join(temp_dir, "source", "__main__.py"), "w"
+            ) as f:
                 f.write(script)
-            zipapp.create_archive(os.path.join(temp_dir, 'source'),
-                                  os.path.join(temp_dir, 'zipapp.pyz'))
-            stdout, _ = self._run_pdb([os.path.join(temp_dir, 'zipapp.pyz')], '\n'.join([
-                'b f',
-                'c',
-                'p x',
-                'q'
-            ]))
-            self.assertIn('42', stdout)
-            self.assertIn('return x + 1', stdout)
+            zipapp.create_archive(
+                os.path.join(temp_dir, "source"),
+                os.path.join(temp_dir, "zipapp.pyz"),
+            )
+            stdout, _ = self._run_pdb(
+                [os.path.join(temp_dir, "zipapp.pyz")],
+                "\n".join(["b f", "c", "p x", "q"]),
+            )
+            self.assertIn("42", stdout)
+            self.assertIn("return x + 1", stdout)
 
     def test_zipimport(self):
         with os_helper.temp_dir() as temp_dir:
-            os.mkdir(os.path.join(temp_dir, 'source'))
+            os.mkdir(os.path.join(temp_dir, "source"))
             zipmodule = textwrap.dedent(
                 """
                 def bar():
@@ -4518,26 +4688,33 @@ def bœr():
             )
             script = textwrap.dedent(
                 f"""
-                import sys; sys.path.insert(0, {repr(os.path.join(temp_dir, 'zipmodule.zip'))})
+                import sys; sys.path.insert(0, {repr(os.path.join(temp_dir, "zipmodule.zip"))})
                 import foo
                 foo.bar()
                 """
             )
 
-            with zipfile.ZipFile(os.path.join(temp_dir, 'zipmodule.zip'), 'w') as zf:
-                zf.writestr('foo.py', zipmodule)
-            with open(os.path.join(temp_dir, 'script.py'), 'w') as f:
+            with zipfile.ZipFile(
+                os.path.join(temp_dir, "zipmodule.zip"), "w"
+            ) as zf:
+                zf.writestr("foo.py", zipmodule)
+            with open(os.path.join(temp_dir, "script.py"), "w") as f:
                 f.write(script)
 
-            stdout, _ = self._run_pdb([os.path.join(temp_dir, 'script.py')], '\n'.join([
-                'n',
-                'n',
-                'b foo.bar',
-                'c',
-                'p f"break in {$_frame.f_code.co_name}"',
-                'q'
-            ]))
-            self.assertIn('break in bar', stdout)
+            stdout, _ = self._run_pdb(
+                [os.path.join(temp_dir, "script.py")],
+                "\n".join(
+                    [
+                        "n",
+                        "n",
+                        "b foo.bar",
+                        "c",
+                        'p f"break in {$_frame.f_code.co_name}"',
+                        "q",
+                    ]
+                ),
+            )
+            self.assertIn("break in bar", stdout)
 
 
 class ChecklineTests(unittest.TestCase):
@@ -4579,30 +4756,31 @@ class ChecklineTests(unittest.TestCase):
 
 @support.requires_subprocess()
 class PdbTestInline(unittest.TestCase):
-    @unittest.skipIf(sys.flags.safe_path,
-                     'PYTHONSAFEPATH changes default sys.path')
-    def _run_script(self, script, commands,
-                    expected_returncode=0,
-                    extra_env=None):
-        self.addCleanup(os_helper.rmtree, '__pycache__')
-        filename = 'main.py'
-        with open(filename, 'w') as f:
+    @unittest.skipIf(
+        sys.flags.safe_path, "PYTHONSAFEPATH changes default sys.path"
+    )
+    def _run_script(
+        self, script, commands, expected_returncode=0, extra_env=None
+    ):
+        self.addCleanup(os_helper.rmtree, "__pycache__")
+        filename = "main.py"
+        with open(filename, "w") as f:
             f.write(textwrap.dedent(script))
         self.addCleanup(os_helper.unlink, filename)
 
         commands = textwrap.dedent(commands)
 
-        cmd = [sys.executable, 'main.py']
+        cmd = [sys.executable, "main.py"]
         if extra_env is not None:
             env = os.environ | extra_env
         else:
             env = os.environ
         with subprocess.Popen(
-                cmd,
-                stdout=subprocess.PIPE,
-                stdin=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                env = {**env, 'PYTHONIOENCODING': 'utf-8'}
+            cmd,
+            stdout=subprocess.PIPE,
+            stdin=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            env={**env, "PYTHONIOENCODING": "utf-8"},
         ) as proc:
             stdout, stderr = proc.communicate(str.encode(commands))
         stdout = bytes.decode(stdout) if isinstance(stdout, bytes) else stdout
@@ -4610,7 +4788,7 @@ class PdbTestInline(unittest.TestCase):
         self.assertEqual(
             proc.returncode,
             expected_returncode,
-            f"Unexpected return code\nstdout: {stdout}\nstderr: {stderr}"
+            f"Unexpected return code\nstdout: {stdout}\nstderr: {stderr}",
         )
         return stdout, stderr
 
@@ -4628,7 +4806,9 @@ class PdbTestInline(unittest.TestCase):
             y
         """
 
-        stdout, stderr = self._run_script(script, commands, expected_returncode=1)
+        stdout, stderr = self._run_script(
+            script, commands, expected_returncode=1
+        )
         self.assertIn("2", stdout)
         self.assertIn("Quit anyway", stdout)
         # Closing stdin will quit the debugger anyway so we need to confirm
@@ -4658,7 +4838,9 @@ class PdbTestInline(unittest.TestCase):
             y
         """
 
-        stdout, stderr = self._run_script(script, commands, expected_returncode=1)
+        stdout, stderr = self._run_script(
+            script, commands, expected_returncode=1
+        )
         # Normal exit should not print anything to stderr
         self.assertEqual(stderr, "")
         # The quit prompt should be printed exactly once
@@ -4725,23 +4907,23 @@ class PdbTestColorize(unittest.TestCase):
     def test_code_display(self):
         output = io.StringIO()
         p = pdb.Pdb(stdout=output, colorize=True)
-        p.set_trace(commands=['ll', 'c'])
+        p.set_trace(commands=["ll", "c"])
         self.assertIn("\x1b", output.getvalue())
 
         output = io.StringIO()
         p = pdb.Pdb(stdout=output, colorize=False)
-        p.set_trace(commands=['ll', 'c'])
+        p.set_trace(commands=["ll", "c"])
         self.assertNotIn("\x1b", output.getvalue())
 
         output = io.StringIO()
         p = pdb.Pdb(stdout=output)
-        p.set_trace(commands=['ll', 'c'])
+        p.set_trace(commands=["ll", "c"])
         self.assertNotIn("\x1b", output.getvalue())
 
     def test_stack_entry(self):
         output = io.StringIO()
         p = pdb.Pdb(stdout=output, colorize=True)
-        p.set_trace(commands=['w', 'c'])
+        p.set_trace(commands=["w", "c"])
         self.assertIn("\x1b", output.getvalue())
 
 
@@ -4752,6 +4934,7 @@ class TestREPLSession(unittest.TestCase):
         # GH-124703: Raise BdbQuit when exiting pdb in REPL session.
         # This allows the REPL session to continue.
         from test.test_repl import spawn_repl
+
         p = spawn_repl()
         user_input = """
             x = 'Spam'
@@ -4761,24 +4944,25 @@ class TestREPLSession(unittest.TestCase):
         """
         p.stdin.write(textwrap.dedent(user_input))
         output = kill_python(p)
-        self.assertIn('SpamDuring', output)
+        self.assertIn("SpamDuring", output)
         self.assertNotIn("Quit anyway", output)
-        self.assertIn('BdbQuit', output)
-        self.assertIn('SpamAfter', output)
+        self.assertIn("BdbQuit", output)
+        self.assertIn("SpamAfter", output)
         self.assertEqual(p.returncode, 0)
 
 
 @support.force_not_colorized_test_class
 @support.requires_subprocess()
 class PdbTestReadline(unittest.TestCase):
-
     @classmethod
     def setUpClass(cls):
         # Ensure that the readline module is loaded
         # If this fails, the test is skipped because SkipTest will be raised
-        readline = import_module('readline')
+        readline = import_module("readline")
         if readline.backend == "editline":
-            raise unittest.SkipTest("libedit readline is not supported for pdb")
+            raise unittest.SkipTest(
+                "libedit readline is not supported for pdb"
+            )
 
     def test_basic_completion(self):
         script = textwrap.dedent("""
@@ -4793,10 +4977,10 @@ class PdbTestReadline(unittest.TestCase):
 
         output = run_pty(script, input)
 
-        self.assertIn(b'commands', output)
-        self.assertIn(b'condition', output)
-        self.assertIn(b'continue', output)
-        self.assertIn(b'hello!', output)
+        self.assertIn(b"commands", output)
+        self.assertIn(b"condition", output)
+        self.assertIn(b"continue", output)
+        self.assertIn(b"hello!", output)
 
     def test_expression_completion(self):
         script = textwrap.dedent("""
@@ -4815,9 +4999,9 @@ class PdbTestReadline(unittest.TestCase):
 
         output = run_pty(script, input)
 
-        self.assertIn(b'special', output)
-        self.assertIn(b'species', output)
-        self.assertIn(b'$_frame', output)
+        self.assertIn(b"special", output)
+        self.assertIn(b"species", output)
+        self.assertIn(b"$_frame", output)
 
     def test_builtin_completion(self):
         script = textwrap.dedent("""
@@ -4833,7 +5017,7 @@ class PdbTestReadline(unittest.TestCase):
 
         output = run_pty(script, input)
 
-        self.assertIn(b'special', output)
+        self.assertIn(b"special", output)
 
     def test_convvar_completion(self):
         script = textwrap.dedent("""
@@ -4851,8 +5035,8 @@ class PdbTestReadline(unittest.TestCase):
 
         output = run_pty(script, input)
 
-        self.assertIn(b'<frame at 0x', output)
-        self.assertIn(b'102', output)
+        self.assertIn(b"<frame at 0x", output)
+        self.assertIn(b"102", output)
 
     def test_local_namespace(self):
         script = textwrap.dedent("""
@@ -4870,10 +5054,12 @@ class PdbTestReadline(unittest.TestCase):
 
         output = run_pty(script, input)
 
-        self.assertIn(b'I love Python', output)
+        self.assertIn(b"I love Python", output)
 
-    @unittest.skipIf(sys.platform.startswith('freebsd'),
-                     '\\x08 is not interpreted as backspace on FreeBSD')
+    @unittest.skipIf(
+        sys.platform.startswith("freebsd"),
+        "\\x08 is not interpreted as backspace on FreeBSD",
+    )
     def test_multiline_auto_indent(self):
         script = textwrap.dedent("""
             import pdb; pdb.Pdb().set_trace()
@@ -4892,7 +5078,7 @@ class PdbTestReadline(unittest.TestCase):
 
         output = run_pty(script, input)
 
-        self.assertIn(b'42', output)
+        self.assertIn(b"42", output)
 
     def test_multiline_completion(self):
         script = textwrap.dedent("""
@@ -4910,10 +5096,12 @@ class PdbTestReadline(unittest.TestCase):
 
         output = run_pty(script, input)
 
-        self.assertIn(b'42', output)
+        self.assertIn(b"42", output)
 
-    @unittest.skipIf(sys.platform.startswith('freebsd'),
-                     '\\x08 is not interpreted as backspace on FreeBSD')
+    @unittest.skipIf(
+        sys.platform.startswith("freebsd"),
+        "\\x08 is not interpreted as backspace on FreeBSD",
+    )
     def test_multiline_indent_completion(self):
         script = textwrap.dedent("""
             import pdb; pdb.Pdb().set_trace()
@@ -4938,8 +5126,8 @@ class PdbTestReadline(unittest.TestCase):
 
         output = run_pty(script, input)
 
-        self.assertIn(b'5', output)
-        self.assertNotIn(b'Error', output)
+        self.assertIn(b"5", output)
+        self.assertNotIn(b"Error", output)
 
     def test_interact_completion(self):
         script = textwrap.dedent("""
@@ -4966,8 +5154,8 @@ class PdbTestReadline(unittest.TestCase):
         output = run_pty(script, input)
 
         self.assertIn(b"'disp' is not defined", output)
-        self.assertIn(b'special', output)
-        self.assertIn(b'84', output)
+        self.assertIn(b"special", output)
+        self.assertIn(b"84", output)
 
 
 def load_tests(loader, tests, pattern):
@@ -4976,7 +5164,9 @@ def load_tests(loader, tests, pattern):
     def setUpPdbBackend(backend):
         def setUp(test):
             import pdb
+
             pdb.set_default_backend(backend)
+
         return setUp
 
     def tearDown(test):
@@ -4993,6 +5183,7 @@ def load_tests(loader, tests, pattern):
 
         # clear all the breakpoints left
         import bdb
+
         bdb.Breakpoint.clearBreakpoints()
 
         # Stop tracing and clear the pdb instance cache
@@ -5007,19 +5198,19 @@ def load_tests(loader, tests, pattern):
     tests.addTest(
         doctest.DocTestSuite(
             test_pdb,
-            setUp=setUpPdbBackend('monitoring'),
+            setUp=setUpPdbBackend("monitoring"),
             tearDown=tearDown,
         )
     )
     tests.addTest(
         doctest.DocTestSuite(
             test_pdb,
-            setUp=setUpPdbBackend('settrace'),
+            setUp=setUpPdbBackend("settrace"),
             tearDown=tearDown,
         )
     )
     return tests
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
