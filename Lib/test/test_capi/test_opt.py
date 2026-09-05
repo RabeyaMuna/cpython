@@ -1188,8 +1188,8 @@ class TestUopsOptimization(unittest.TestCase):
             attr = 1
 
         res, ex = self._run_with_optimizer(thing, Foo())
-        opnames = list(iter_opnames(ex))
         self.assertIsNotNone(ex)
+        opnames = list(iter_opnames(ex))
         self.assertEqual(res, TIER2_THRESHOLD * 2)
         guard_type_version_count = opnames.count("_GUARD_TYPE_VERSION")
         self.assertEqual(guard_type_version_count, 1)
@@ -1214,8 +1214,8 @@ class TestUopsOptimization(unittest.TestCase):
             attr = 1
 
         res, ex = self._run_with_optimizer(thing, Foo())
-        opnames = list(iter_opnames(ex))
         self.assertIsNotNone(ex)
+        opnames = list(iter_opnames(ex))
         self.assertEqual(res, TIER2_THRESHOLD * 2)
         guard_type_version_count = opnames.count("_GUARD_TYPE_VERSION")
         self.assertEqual(guard_type_version_count, 1)
@@ -1241,8 +1241,8 @@ class TestUopsOptimization(unittest.TestCase):
             pass
 
         res, ex = self._run_with_optimizer(thing, Foo())
-        opnames = list(iter_opnames(ex))
         self.assertIsNotNone(ex)
+        opnames = list(iter_opnames(ex))
         self.assertEqual(res, TIER2_THRESHOLD * 6 + 1)
         call = opnames.index("_CALL_BUILTIN_FAST")
         load_attr_top = opnames.index("_POP_TOP_LOAD_CONST_INLINE_BORROW", 0, call)
@@ -1264,8 +1264,8 @@ class TestUopsOptimization(unittest.TestCase):
         class Foo:
             attr = 1
         res, ex = self._run_with_optimizer(thing, Foo())
-        opnames = list(iter_opnames(ex))
         self.assertIsNotNone(ex)
+        opnames = list(iter_opnames(ex))
         self.assertEqual(res, TIER2_THRESHOLD * 2)
         call = opnames.index("_CALL_BUILTIN_FAST_WITH_KEYWORDS")
         load_attr_top = opnames.index("_POP_TOP_LOAD_CONST_INLINE_BORROW", 0, call)
