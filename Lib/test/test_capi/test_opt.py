@@ -42,11 +42,15 @@ def get_first_executor(func):
 
 
 def iter_opnames(ex):
+    if ex is None:
+        return
     for item in ex:
         yield item[0]
 
 
 def get_opnames(ex):
+    if ex is None:
+        return []
     return list(iter_opnames(ex))
 
 
