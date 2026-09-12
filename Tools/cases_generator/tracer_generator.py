@@ -1,36 +1,31 @@
 import argparse
+from typing import TextIO
 
 from analyzer import (
     Analysis,
-    Instruction,
-    Uop,
-    Label,
     CodeSection,
-    Part,
-    analyze_files,
-    Skip,
-    Flush,
+    Instruction,
+    Label,
     analysis_error,
-    StackItem,
+    analyze_files,
 )
+from cwriter import CWriter
 from generators_common import (
     DEFAULT_INPUT,
     ROOT,
-    write_header,
-    type_and_null,
     Emitter,
+    ReplacementFunctionType,
     TokenIterator,
     always_true,
     emit_to,
-    ReplacementFunctionType,
+    write_header,
 )
-from cwriter import CWriter
-from typing import TextIO
 from lexer import Token
-from stack import Local, Stack, StackError, get_stack_effect, Storage
+from stack import Storage
 from tier1_generator import generate_tier1_cases
 
 DEFAULT_OUTPUT = ROOT / "Python/generated_tracer_cases.c.h"
+
 
 class TracerEmitter(Emitter):
     out: CWriter
@@ -38,7 +33,12 @@ class TracerEmitter(Emitter):
     _replacers: dict[str, ReplacementFunctionType]
     cannot_escape: bool
 
-    def __init__(self, out: CWriter, labels: dict[str, Label], cannot_escape: bool = False):
+    def __init__(
+        self,
+        out: CWriter,
+        labels: dict[str, Label],
+        cannot_escape: bool = False,
+    ):
         super().__init__(out, labels, cannot_escape, is_tracing=True)
         self._replacers = {
             **self._replacers,
@@ -56,7 +56,9 @@ class TracerEmitter(Emitter):
         inst: Instruction | None,
     ) -> bool:
         if storage.spilled:
-            raise analysis_error("stack_pointer needs reloading before dispatch", tkn)
+            raise analysis_error(
+                "stack_pointer needs reloading before dispatch", tkn
+            )
         storage.stack.flush(self.out)
         self.out.start_line()
         self.emit("TRACING_DISPATCH")
@@ -71,7 +73,9 @@ class TracerEmitter(Emitter):
         inst: Instruction | None,
     ) -> bool:
         if storage.spilled:
-            raise analysis_error("stack_pointer needs reloading before dispatch", tkn)
+            raise analysis_error(
+                "stack_pointer needs reloading before dispatch", tkn
+            )
         storage.stack.flush(self.out)
         self.out.start_line()
         self.emit("TRACING_DISPATCH_INLINED")
@@ -86,10 +90,12 @@ class TracerEmitter(Emitter):
         inst: Instruction | None,
     ) -> bool:
         if storage.spilled:
-            raise analysis_error("stack_pointer needs reloading before dispatch", tkn)
+            raise analysis_error(
+                "stack_pointer needs reloading before dispatch", tkn
+            )
         storage.stack.flush(self.out)
         self.out.start_line()
-        if "specializing" in uop.annotations:
+        if "specializing" in getattr(uop, "annotations", []):
             self.emit("TRACING_SPECIALIZE_DISPATCH_SAME_OPARG")
         else:
             self.emit(tkn)
@@ -136,12 +142,14 @@ class TracerEmitter(Emitter):
 
     exit_if = deopt_if
 
-def generate_tracer_cases(
-    analysis: Analysis, out: CWriter
-) -> None:
-    out.emit(f"#ifdef _Py_TIER2 /* BEGIN TRACING INSTRUCTIONS */\n")
-    generate_tier1_cases(analysis, out, TracerEmitter(out, analysis.labels), is_tracing=True)
-    out.emit(f"#endif /* END TRACING INSTRUCTIONS */\n")
+
+def generate_tracer_cases(analysis: Analysis, out: CWriter) -> None:
+    out.emit("#ifdef _Py_TIER2 /* BEGIN TRACING INSTRUCTIONS */\n")
+    generate_tier1_cases(
+        analysis, out, TracerEmitter(out, analysis.labels), is_tracing=True
+    )
+    out.emit("#endif /* END TRACING INSTRUCTIONS */\n")
+
 
 def generate_tracer(
     filenames: list[str], analysis: Analysis, outfile: TextIO, lines: bool
@@ -153,6 +161,7 @@ def generate_tracer(
     generate_tracer_cases(analysis, out)
     out.emit("#undef TRACING_JIT\n")
     out.emit("#undef TIER_ONE\n")
+
 
 # For use in unittest
 def generate_tracer_from_files(
@@ -173,7 +182,10 @@ arg_parser.add_argument(
 )
 
 arg_parser.add_argument(
-    "-l", "--emit-line-directives", help="Emit #line directives", action="store_true"
+    "-l",
+    "--emit-line-directives",
+    help="Emit #line directives",
+    action="store_true",
 )
 
 arg_parser.add_argument(
