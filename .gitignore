@@ -178,3 +178,8 @@ CLAUDE.local.md
 #### main branch only stuff below this line, things to backport go above. ####
 # main branch only: ABI files are not checked/maintained.
 Doc/data/python*.abi
+# Shell redirection artifacts
+=[0-9]*
+>[0-9]*
+*.tmp
+*.log
