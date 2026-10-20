@@ -59,7 +59,6 @@ def declare_variables(uop: Uop, out: CWriter) -> None:
 
 
 class Tier2Emitter(Emitter):
-
     def __init__(self, out: CWriter, labels: dict[str, Label]):
         super().__init__(out, labels)
         self._replacers["oparg"] = self.oparg
@@ -70,7 +69,7 @@ class Tier2Emitter(Emitter):
         # To do: Add jump targets for popping values.
         if offset != 0:
             storage.copy().flush(self.out)
-        return f"JUMP_TO_ERROR();"
+        return "JUMP_TO_ERROR();"
 
     def deopt_if(
         self,
@@ -93,7 +92,7 @@ class Tier2Emitter(Emitter):
         self.emit("}\n")
         return not always_true(first_tkn)
 
-    def exit_if(     # type: ignore[override]
+    def exit_if(
         self,
         tkn: Token,
         tkn_iter: TokenIterator,
@@ -145,7 +144,9 @@ class Tier2Emitter(Emitter):
         inst: Instruction | None,
     ) -> bool:
         if storage.spilled:
-            raise analysis_error("stack_pointer needs reloading before dispatch", tkn)
+            raise analysis_error(
+                "stack_pointer needs reloading before dispatch", tkn
+            )
         storage.stack.flush(self.out)
         self.emit("TIER2_STORE_IP")
         emit_to(self.out, tkn_iter, "SEMI")
@@ -161,13 +162,16 @@ class Tier2Emitter(Emitter):
         inst: Instruction | None,
     ) -> bool:
         if storage.spilled:
-            raise analysis_error("stack_pointer needs reloading before dispatch", tkn)
+            raise analysis_error(
+                "stack_pointer needs reloading before dispatch", tkn
+            )
         storage.stack.flush(self.out)
         self.emit("break;\n")
         next(tkn_iter)
         next(tkn_iter)
         next(tkn_iter)
         return False
+
 
 def write_uop(uop: Uop, emitter: Emitter, stack: Stack) -> Stack:
     locals: dict[str, Local] = {}
@@ -178,7 +182,7 @@ def write_uop(uop: Uop, emitter: Emitter, stack: Stack) -> Stack:
             assert uop.properties.const_oparg < 0
         elif uop.properties.const_oparg >= 0:
             emitter.emit(f"oparg = {uop.properties.const_oparg};\n")
-            emitter.emit(f"assert(oparg == CURRENT_OPARG());\n")
+            emitter.emit("assert(oparg == CURRENT_OPARG());\n")
         storage = Storage.for_uop(stack, uop, emitter.out)
         idx = 0
         for cache in uop.caches:
@@ -188,13 +192,16 @@ def write_uop(uop: Uop, emitter: Emitter, stack: Stack) -> Stack:
                 else:
                     type = f"uint{cache.size*16}_t "
                     cast = f"uint{cache.size*16}_t"
-                emitter.emit(f"{type}{cache.name} = ({cast})CURRENT_OPERAND{idx}();\n")
+                emitter.emit(
+                    f"{type}{cache.name} = ({cast})CURRENT_OPERAND{idx}();\n"
+                )
                 idx += 1
         _, storage = emitter.emit_tokens(uop, storage, None, False)
         storage.flush(emitter.out)
     except StackError as ex:
         raise analysis_error(ex.args[0], uop.body.open) from None
     return storage.stack
+
 
 SKIPS = ("_EXTENDED_ARG",)
 
@@ -248,7 +255,10 @@ arg_parser.add_argument(
 )
 
 arg_parser.add_argument(
-    "-l", "--emit-line-directives", help="Emit #line directives", action="store_true"
+    "-l",
+    "--emit-line-directives",
+    help="Emit #line directives",
+    action="store_true",
 )
 
 arg_parser.add_argument(
