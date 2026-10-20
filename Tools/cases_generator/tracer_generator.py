@@ -6,18 +6,13 @@ from analyzer import (
     Uop,
     Label,
     CodeSection,
-    Part,
     analyze_files,
-    Skip,
-    Flush,
     analysis_error,
-    StackItem,
 )
 from generators_common import (
     DEFAULT_INPUT,
     ROOT,
     write_header,
-    type_and_null,
     Emitter,
     TokenIterator,
     always_true,
@@ -27,7 +22,7 @@ from generators_common import (
 from cwriter import CWriter
 from typing import TextIO
 from lexer import Token
-from stack import Local, Stack, StackError, get_stack_effect, Storage
+from stack import Storage
 from tier1_generator import generate_tier1_cases
 
 DEFAULT_OUTPUT = ROOT / "Python/generated_tracer_cases.c.h"
@@ -89,7 +84,7 @@ class TracerEmitter(Emitter):
             raise analysis_error("stack_pointer needs reloading before dispatch", tkn)
         storage.stack.flush(self.out)
         self.out.start_line()
-        if "specializing" in uop.annotations:
+        if isinstance(uop, Uop) and "specializing" in uop.annotations:
             self.emit("TRACING_SPECIALIZE_DISPATCH_SAME_OPARG")
         else:
             self.emit(tkn)
@@ -139,9 +134,9 @@ class TracerEmitter(Emitter):
 def generate_tracer_cases(
     analysis: Analysis, out: CWriter
 ) -> None:
-    out.emit(f"#ifdef _Py_TIER2 /* BEGIN TRACING INSTRUCTIONS */\n")
+    out.emit("#ifdef _Py_TIER2 /* BEGIN TRACING INSTRUCTIONS */\n")
     generate_tier1_cases(analysis, out, TracerEmitter(out, analysis.labels), is_tracing=True)
-    out.emit(f"#endif /* END TRACING INSTRUCTIONS */\n")
+    out.emit("#endif /* END TRACING INSTRUCTIONS */\n")
 
 def generate_tracer(
     filenames: list[str], analysis: Analysis, outfile: TextIO, lines: bool
